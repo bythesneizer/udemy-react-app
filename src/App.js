@@ -39,11 +39,19 @@ class App extends Component {
   }
 
   render(){
+    const style = {
+      backgroundColor:'white',
+      border:'1px solid blue',
+      padding: '5px'
+    } 
+
     return (
       <div className="App">
        <h1>React Application</h1>
        <p>This is a test for building a React application</p>
-       <button onClick={this.onClickHandler.bind(this, 'Clicked')}>Change name</button>
+       <button 
+       style={style}
+       onClick={this.onClickHandler.bind(this, 'Clicked')}>Change name</button>
        <Person 
           name={this.state.persons[0].name} 
           numberOfCats={this.state.persons[0].numberOfCats}
