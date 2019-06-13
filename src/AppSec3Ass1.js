@@ -27,11 +27,11 @@ class App extends Component {
        ></UserInput>
        <UserOutput 
           username={this.state.username}
-          p2='Pargraph for UserOutput Componenet'
+          p2='Pargraph for UserOutput Componenent'
         ></UserOutput>
         <UserOutput 
           username={this.state.username}
-          p2='Pargraph for UserOutput Componenet'
+          p2='Pargraph for UserOutput Componenent'
         ></UserOutput>
       </div>
     )
