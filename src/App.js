@@ -10,9 +10,9 @@ class App extends Component {
   
   state = {
     persons: [
-      { name: 'Jeff', age: 27, numberOfCats: rn1},
-      { name: 'Quincy', age: 34, numberOfCats: rn2},
-      { name: 'Derek', age: 67, numberOfCats: rn3}
+      { id: '0001', name: 'Jeff', age: 27, numberOfCats: rn1},
+      { id: '0002', name: 'Quincy', age: 34, numberOfCats: rn2},
+      { id: '0903', name: 'Derek', age: 67, numberOfCats: rn3}
     ],
     personsVisible: false
   }
@@ -31,6 +31,21 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
+  changePersonNameHandler = (event,id) => {
+    //Get index of person
+    const personIndex = this.state.persons.findIndex(p => {return p.id===id})
+    //Make copy of selected person 
+    const person = {...this.state.persons[personIndex]}
+    //Change name to value entered
+    person.name = event.target.value
+    //Make copy of persons array 
+    const persons = [...this.state.persons]
+    
+    persons[personIndex]=person
+    
+    this.setState({persons: persons})
+  }
+
   render(){
     const style = {
       backgroundColor:'white',
@@ -45,8 +60,10 @@ class App extends Component {
       <div>
         {this.state.persons.map((person, index) => {
           return <Person
-          click={this.removePersonHandler.bind(index)}
-          name={person.name} 
+          key={person.id}
+          click={() => this.removePersonHandler(index)}
+          name={person.name}
+          change={(event) => this.changePersonNameHandler(event, person.id)} 
           numberOfCats={person.numberOfCats}>This person is {person.age} years old</Person>
         })}
      </div>
