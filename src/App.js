@@ -13,37 +13,45 @@ class App extends Component {
       { name: 'Jeff', age: 27, numberOfCats: rn1},
       { name: 'Quincy', age: 34, numberOfCats: rn2},
       { name: 'Derek', age: 67, numberOfCats: rn3}
-    ]
+    ],
+    personsVisible: false
   }
 
-  onClickHandler = (newName) => {
-    console.log('Button clicked')
+  togglePersonsVisibilityHandler = () => {
+    const showPersons = this.state.personsVisible
+    console.log("showPersons bool value is " + showPersons)
     this.setState({
-      persons: [
-        { name: newName, age: 27, numberOfCats: rn1},
-        { name: 'Quincy', age: 34, numberOfCats: rn2},
-        { name: 'Derek', age: 67, numberOfCats: rn3}
-      ]
+      personsVisible: !showPersons
     })
   }
 
-  changeNameHandler = (event) => {
-    console.log('Button clicked')
-    this.setState({
-      persons: [
-        { name: 'Jeff', age: 27, numberOfCats: rn1},
-        { name: event.target.value, age: 34, numberOfCats: rn2},
-        { name: 'Derek', age: 67, numberOfCats: rn3}
-      ]
-    })
+  removePersonHandler = (personIndex) => {
+    const persons = [...this.state.persons]
+    persons.splice(personIndex, 1)
+    this.setState({persons: persons})
   }
 
   render(){
     const style = {
       backgroundColor:'white',
-      border:'1px solid blue',
+      border:'2px solid blue',
       padding: '5px'
-    } 
+    }
+
+    let persons = null
+
+    if(this.state.personsVisible){
+      persons = (
+      <div>
+        {this.state.persons.map((person, index) => {
+          return <Person
+          click={this.removePersonHandler.bind(index)}
+          name={person.name} 
+          numberOfCats={person.numberOfCats}>This person is {person.age} years old</Person>
+        })}
+     </div>
+    );
+    }
 
     return (
       <div className="App">
@@ -51,21 +59,8 @@ class App extends Component {
        <p>This is a test for building a React application</p>
        <button 
        style={style}
-       onClick={this.onClickHandler.bind(this, 'Clicked')}>Change name</button>
-       <Person 
-          name={this.state.persons[0].name} 
-          numberOfCats={this.state.persons[0].numberOfCats}
-          click={this.onClickHandler.bind(this, 'Jeff')}
-          >This person is {this.state.persons[0].age} years old</Person>
-       <Person 
-          name={this.state.persons[1].name} 
-          numberOfCats={this.state.persons[1].numberOfCats}
-          change={this.changeNameHandler}
-          >This person is {this.state.persons[1].age} years old</Person>
-       <Person 
-          name={this.state.persons[2].name} 
-          numberOfCats={this.state.persons[2].numberOfCats}
-          >This person is {this.state.persons[2].age} years old</Person>
+       onClick={this.togglePersonsVisibilityHandler}>Show persons</button>
+       {persons}
       </div>
     )
   }
