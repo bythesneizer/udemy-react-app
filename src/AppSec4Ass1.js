@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   render(){
-    
+
     let characters = null
 
     characters = (
@@ -34,7 +34,7 @@ class App extends Component {
           {this.state.characters.map((character, index) => {
             console.log(character)
             return <Char
-//            key={character.id}
+            key={index}
             click={() => this.removeCharacterHandler(index)}
             char={character}></Char>
           })}
