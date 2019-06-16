@@ -1,9 +1,16 @@
 import React from 'react'
-import './Person.css'
+import Radium from 'radium'
+import classes from './Person.module.css'
 
 const person = (props) => {
+    const style = {
+        '@media (min-width: 500px)': {
+            width: '450px'
+        }
+    }
+
     return (
-        <div className='Person'>
+        <div className={classes.Person} style={style}>
             <button onClick={props.click}>Remove</button> 
             <p>{props.name} owns {props.numberOfCats} cats.</p>
             <p>{props.children}</p>
@@ -12,4 +19,4 @@ const person = (props) => {
     )
 }
 
-export default person
+export default Radium(person)

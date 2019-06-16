@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
 import Person from './Person/Person'
-import './App.css';
-
-const rn1 = Math.floor(Math.random() * 20 + 1)
-const rn2 = Math.floor(Math.random() * 20 + 1)
-const rn3 = Math.floor(Math.random() * 20 + 1)
+import Radium, {StyleRoot} from 'radium'
+import classes from './App.module.css';
 
 class App extends Component {
   
   state = {
     persons: [
-      { id: '0001', name: 'Jeff', age: 27, numberOfCats: rn1},
-      { id: '0002', name: 'Quincy', age: 34, numberOfCats: rn2},
-      { id: '0903', name: 'Derek', age: 67, numberOfCats: rn3}
+      { id: '0001', name: 'Jeff', age: 27, numberOfCats: Math.floor(Math.random() * 20 + 1)},
+      { id: '0002', name: 'Quincy', age: 34, numberOfCats: Math.floor(Math.random() * 20 + 1)},
+      { id: '0903', name: 'Derek', age: 67, numberOfCats: Math.floor(Math.random() * 20 + 1)}
     ],
     personsVisible: false
   }
@@ -47,13 +44,10 @@ class App extends Component {
   }
 
   render(){
-    const style = {
-      backgroundColor:'white',
-      border:'2px solid blue',
-      padding: '5px'
-    }
 
     let persons = null
+    let showHide = 'Show'
+    let buttonClass = classes.hideButton
 
     if(this.state.personsVisible){
       persons = (
@@ -68,19 +62,33 @@ class App extends Component {
         })}
      </div>
     );
+    showHide='Hide';
+    buttonClass=classes.showButton
     }
 
+    const assignedClasses = []
+
+    if(this.state.persons.length <= 2){
+      assignedClasses.push(classes.red)
+    }
+    if(this.state.persons.length <= 1){
+      assignedClasses.push(classes.bold)
+    }
+    
     return (
-      <div className="App">
-       <h1>React Application</h1>
-       <p>This is a test for building a React application</p>
-       <button 
-       style={style}
-       onClick={this.togglePersonsVisibilityHandler}>Show persons</button>
-       {persons}
-      </div>
+      <StyleRoot>
+         <div className={classes.App}>
+           <h1>React Application</h1>
+           <p className={assignedClasses.join(' ')}>This is a test for building a React application</p>
+           <button 
+           className={buttonClass}
+           onClick={this.togglePersonsVisibilityHandler}>{showHide} persons</button>
+           {persons}
+        </div>
+      </StyleRoot>
+
     )
   }
 }
 
-export default App;
+export default Radium(App);
