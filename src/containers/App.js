@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Person from './Person/Person'
+import Persons from '../components/Persons/Persons'
+import Cockpit from '../components/Cockpit/Cockpit'
 import Radium, {StyleRoot} from 'radium'
 import classes from './App.module.css';
 
@@ -46,43 +47,27 @@ class App extends Component {
   render(){
 
     let persons = null
-    let showHide = 'Show'
-    let buttonClass = classes.hideButton
+
 
     if(this.state.personsVisible){
       persons = (
-      <div>
-        {this.state.persons.map((person, index) => {
-          return <Person
-          key={person.id}
-          click={() => this.removePersonHandler(index)}
-          name={person.name}
-          change={(event) => this.changePersonNameHandler(event, person.id)} 
-          numberOfCats={person.numberOfCats}>This person is {person.age} years old</Person>
-        })}
-     </div>
+        <Persons
+          persons={this.state.persons}
+          remove={this.removePersonHandler}
+          change={this.changePersonNameHandler}
+        />
     );
-    showHide='Hide';
-    buttonClass=classes.showButton
     }
 
-    const assignedClasses = []
-
-    if(this.state.persons.length <= 2){
-      assignedClasses.push(classes.red)
-    }
-    if(this.state.persons.length <= 1){
-      assignedClasses.push(classes.bold)
-    }
-    
     return (
       <StyleRoot>
          <div className={classes.App}>
-           <h1>React Application</h1>
-           <p className={assignedClasses.join(' ')}>This is a test for building a React application</p>
-           <button 
-           className={buttonClass}
-           onClick={this.togglePersonsVisibilityHandler}>{showHide} persons</button>
+           <Cockpit
+              title={this.props.title} 
+              personsVisible={this.state.personsVisible}
+              persons={this.state.persons}
+              visibility={this.togglePersonsVisibilityHandler}
+           />
            {persons}
         </div>
       </StyleRoot>
