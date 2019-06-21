@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
-import Radium, {StyleRoot} from 'radium'
 import classes from './App.module.css';
 
 class App extends Component {
@@ -48,7 +47,6 @@ class App extends Component {
 
     let persons = null
 
-
     if(this.state.personsVisible){
       persons = (
         <Persons
@@ -60,20 +58,16 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
-         <div className={classes.App}>
-           <Cockpit
-              title={this.props.title} 
-              personsVisible={this.state.personsVisible}
-              persons={this.state.persons}
-              visibility={this.togglePersonsVisibilityHandler}
-           />
-           {persons}
-        </div>
-      </StyleRoot>
-
+      <div className={classes.App}>
+        <Cockpit
+          title={this.props.title} 
+          personsVisible={this.state.personsVisible}
+          persons={this.state.persons}
+          visibility={this.togglePersonsVisibilityHandler}/>
+          {persons}
+      </div>
     )
   }
 }
 
-export default Radium(App);
+export default App;
