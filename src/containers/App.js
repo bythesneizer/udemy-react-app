@@ -16,7 +16,6 @@ class App extends Component {
 
   togglePersonsVisibilityHandler = () => {
     const showPersons = this.state.personsVisible
-    console.log("showPersons bool value is " + showPersons)
     this.setState({
       personsVisible: !showPersons
     })

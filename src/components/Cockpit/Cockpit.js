@@ -2,9 +2,13 @@ import React, { useEffect } from 'react';
 import classes from './Cockpit.module.css'
 
 const Cockpit = (props) => {
+  
   useEffect(() => {
     console.log('[Cockpit.js] useEffect')
-  });
+    setTimeout(() => {
+      alert('useEffect in use')
+    }, 1000)
+  }, [props.persons]);
 
     const assignedClasses = []
     let showHide = 'Show'
