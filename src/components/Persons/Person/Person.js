@@ -3,6 +3,7 @@ import classes from './Person.module.css'
 
 class Person extends Component {
     render(){
+        console.log("[Person.js] rendering...")
         return (
             <div className={classes.Person}>
                 <button onClick={this.props.click}>Remove</button> 

@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
+
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
 import classes from './App.module.css';
 
 class App extends Component {
   
+  constructor(props){
+    super(props)
+    console.log("[App.js] constructor")
+  }
+
   state = {
     persons: [
       { id: '0001', name: 'Jeff', age: 27, numberOfCats: Math.floor(Math.random() * 20 + 1)},
@@ -12,6 +18,19 @@ class App extends Component {
       { id: '0903', name: 'Derek', age: 67, numberOfCats: Math.floor(Math.random() * 20 + 1)}
     ],
     personsVisible: false
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log("[App.js] getDerivedStateFromProps", props)
+    return state;
+  }
+
+  componentWillMount(){
+    console.log("[App.js] componentWillMount")
+  }
+
+  componentDidMount(){
+    console.log("[App.js] componentDidMount")
   }
 
   togglePersonsVisibilityHandler = () => {
@@ -43,6 +62,8 @@ class App extends Component {
   }
 
   render(){
+
+    console.log("[App.js] render")
 
     let persons = null
 
